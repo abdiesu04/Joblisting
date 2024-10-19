@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const connectDB = require('./infrastructure/db/mongoose');
-const authRoutes = require('./api/controllers/authcontroller');
+const authRoutes = require('./api/routes/authroutes');
 
 const app = express();
 connectDB();

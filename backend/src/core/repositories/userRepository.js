@@ -1,22 +1,20 @@
-const user  = require('../domain/user')
-
-
+const User = require('../domain/user'); 
 
 const createUser = async (userData) => {
-    const user = new User(userData)
-    return await user.save();
-}
+    const user = new User(userData);
+    return await user.save(); 
+};
 
-const findUserByEmail = async (email) =>{
-    return await user.findOne({email})
-}
+const findUserByEmail = async (email) => {
+    return await User.findOne({ email });
+};
 
 const findUserByID = async (id) => {
-    return await user.findOne(id)
-}
+    return await User.findById(id);
+};
 
 module.exports = {
-    createUser , 
-    findUserByEmail , 
-    findUserByID
-}
+    createUser,
+    findUserByEmail,
+    findUserByID,
+};

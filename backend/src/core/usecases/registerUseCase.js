@@ -1,9 +1,27 @@
 const userRepository = require('../repositories/userRepository');
+const bcrypt = require('bcrypt');
 
-const registerUser = async (userData) => {
-    const existingUser = await userRepository.findUserByEmail(userData.email);
-    if (existingUser) throw new Error('User already exists');
-    return await userRepository.createUser(userData);
-};
+const register  = async (userData) =>{
+    if (!userData.username || !userData.email || !userData.password) {
+        throw new Error('Missing required fields');
+    }
+    console.log(userData.password)
+    
+    userData.password = await bcrypt.hash(userData.password , 10)
+    console.log(userData.password)
+    const user  = await userRepository.findUserByEmail(userData.email)
+    if (user) {
+        throw new Error('User Already Exists')
+    }
 
-module.exports = registerUser;
+    try{
+        userRepository.createUser(userData)
+    } catch (error){
+        throw new Error('User Registraion Failed' + error.message)
+    }
+}
+
+
+module.exports = {
+    register
+}
