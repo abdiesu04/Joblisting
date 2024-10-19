@@ -10,11 +10,19 @@ const generateToken = (user) => {
     return jwt.sign(payload, config.jwtSecret, { expiresIn: config.jwtExpiration });
 };
 
+const generateRefreshToken = (user) => {
+    const payload = {
+        id: user._id,
+    };
+    return jwt.sign(payload, config.jwtSecret, { expiresIn: '72h' });
+}
+
 const verifyToken = (token) => {
     return jwt.verify(token, config.jwtSecret);
 };
 
 module.exports = {
     generateToken,
-    verifyToken
+    verifyToken , 
+    generateRefreshToken
 };
