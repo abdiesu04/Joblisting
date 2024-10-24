@@ -8,7 +8,6 @@ const register  = async (userData) =>{
     console.log(userData.password)
     
     userData.password = await bcrypt.hash(userData.password , 10)
-    console.log(userData.password)
     const user  = await userRepository.findUserByEmail(userData.email)
     if (user) {
         throw new Error('User Already Exists')
